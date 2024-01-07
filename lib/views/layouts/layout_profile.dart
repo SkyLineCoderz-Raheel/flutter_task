@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_task/constants/colors/colors.dart';
 import 'package:flutter_task/views/layouts/item_appointments.dart';
 import 'package:flutter_task/views/layouts/item_family_member.dart';
+import 'package:flutter_task/views/screens/screen_add_family_membar.dart';
+import 'package:flutter_task/views/screens/screen_edit_profile.dart';
 import 'package:flutter_task/widgets/custom_container.dart';
 import 'package:flutter_task/widgets/custom_listview_builder.dart';
 import 'package:flutter_task/widgets/custom_text.dart';
@@ -59,16 +61,21 @@ class LayoutProfile extends StatelessWidget {
                             border: Border.all(color: Colors.grey.shade100),
                             image: DecorationImage(image: NetworkImage(placeholder_url),)
                         ),
-                        child: Container(
+                        child: GestureDetector(
+                          onTap: (){
+                            Get.to(ScreenEditProfile());
+                          },
+                          child: Container(
 
-                          padding: EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                              color: appPrimaryColor,
-                              shape: BoxShape.circle
-                          ),
-                          child: CustomSvg(name: "Pencil",),
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                                color: appPrimaryColor,
+                                shape: BoxShape.circle
+                            ),
+                            child: CustomSvg(name: "Pencil",),
 
-                      ),
+                                                ),
+                        ),
 
                       ),
                       CustomText(text: "Name",
@@ -91,38 +98,46 @@ class LayoutProfile extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         size: 16,
                       ),
-                      Row(
-                      children: <Widget>[
-                        CustomListviewBuilder( itemCount: 2, scrollDirection: CustomDirection.horizontal, itemBuilder: (BuildContext context, int index) {
-                          return ItemFamilyMember();
-                        },),
-                        Container(
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle
-                          ),
-                          child: Column(
-                            children: <Widget>[
-
-                              DottedBorder(
-                              radius: Radius.circular(30),
-                                borderType: BorderType.Circle,
-                                child: CircleAvatar(
-
-                                  child: Icon(Icons.add),
-                                  radius: 25,
-                                  backgroundColor: Colors.transparent,
-                                ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                        children: <Widget>[
+                          CustomListviewBuilder( itemCount: 10, scrollDirection: CustomDirection.horizontal, itemBuilder: (BuildContext context, int index) {
+                            return ItemFamilyMember();
+                          },),
+                          GestureDetector(
+                            onTap: (){
+                              Get.to(ScreenAddFamilyMembar());
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle
                               ),
-                              CustomText(text: "Add",
-                                color:appPrimaryColor,
-                                fontWeight: FontWeight.w500,
-                                size: 10,).marginSymmetric(vertical: 5)
+                              child: Column(
+                                children: <Widget>[
 
-                            ],
-                          ),
-                        )
-                      ]                  ),
+                                  DottedBorder(
+                                  radius: Radius.circular(30),
+                                    borderType: BorderType.Circle,
+                                    child: CircleAvatar(
+
+                                      child: Icon(Icons.add),
+                                      radius: 25,
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                  CustomText(text: "Add",
+                                    color:appPrimaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    size: 10,).marginSymmetric(vertical: 5)
+
+                                ],
+                              ),
+                            ),
+                          )
+                        ]                  ),
+                      ),
                       CustomText(text: "Past Appointments",
                         color: Color(0xFF0D0D0D),
                         fontWeight: FontWeight.w600,

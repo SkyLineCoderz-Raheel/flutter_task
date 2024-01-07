@@ -27,6 +27,8 @@ class ItemAppointments extends StatelessWidget {
           Expanded(child: Column(
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                   children: <Widget>[
                     CustomText(text: "Dr. Abram George",
                     color: Color(0xFF18273B),
@@ -35,7 +37,7 @@ class ItemAppointments extends StatelessWidget {
                     ),
                     CustomText(text: "\$ 70",),
                   ],
-                ),
+                ).marginSymmetric(vertical: 5),
                 Row(
                   children: <Widget>[
                     Container(
@@ -57,26 +59,26 @@ class ItemAppointments extends StatelessWidget {
                           ).marginSymmetric(horizontal: 4)
                         ],
                       ),
-                    ),
+                    ).marginOnly(right: 12),
                     CustomText(text: "Submitted",
                       color: Color(0xFF86022E),
                       size: 8,
                       fontWeight: FontWeight.w600,
                     ),
                   ],
-                ),
+                ).marginSymmetric(vertical: 5),
                 Row(
                   children: <Widget>[
                     CustomSvg(
                       name: "video",
-                    ),
+                    ).marginOnly(right: 10),
                     CustomText(text: "Video Session",
                       color: Color(0xFF18273B),
                       size: 8,
                       fontWeight: FontWeight.w600,
                     )
                   ],
-                ),
+                ).marginSymmetric(vertical: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -91,7 +93,7 @@ class ItemAppointments extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     )
                   ],
-                ),
+                ).marginSymmetric(vertical: 5),
               ],
             ),
           )

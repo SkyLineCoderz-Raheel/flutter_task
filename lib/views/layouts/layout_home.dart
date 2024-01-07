@@ -97,6 +97,33 @@ class LayoutHome extends StatelessWidget {
 
                     }, child: CustomText(text: 'Attend Now',color: appPrimaryColor,),),
                   ),
+                  Container(
+                    padding:EdgeInsets.symmetric(vertical: 12,horizontal: 16),
+                    margin:EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                    decoration: BoxDecoration(color: appPrimaryColor.withOpacity(.1
+                    ),
+                    borderRadius: BorderRadius.circular(25),
+
+
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: <Widget>[
+                            CustomSvg(name: "calendar",).marginOnly(right: 5),
+                            CustomText(text:"Monday, May 12",size: 14,)
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            CustomSvg(name: "timmer",).marginOnly(right: 10),
+                            CustomText(text:"11:00 - 12:00 Am",size: 14,)
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   ListTile(
                     leading: CustomText(
                       text: "Health Articles",

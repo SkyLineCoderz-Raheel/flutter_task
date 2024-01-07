@@ -53,6 +53,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Montserrat',
         primarySwatch: appPrimaryColor,
+        radioTheme: RadioThemeData(
+          fillColor: MaterialStateProperty.all(appPrimaryColor)
+        ),
         checkboxTheme: CheckboxThemeData(
           checkColor: MaterialStateProperty.all(Colors.white),
           fillColor: MaterialStateProperty.all(appPrimaryColor),
@@ -63,15 +66,16 @@ class MyApp extends StatelessWidget {
         ),
         appBarTheme: AppBarTheme(
           color: Colors.white,
+
           elevation: 0,
           titleTextStyle: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontFamily: "Montserrat"),
-          centerTitle: false,
+          centerTitle: true,
           systemOverlayStyle:
           SystemUiOverlayStyle(statusBarColor: appPrimaryColor),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: Colors.black,),
         ),
         dividerColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,

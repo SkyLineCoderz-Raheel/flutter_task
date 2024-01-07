@@ -14,6 +14,7 @@ class Assets {
   static const String iconsArrowForward = 'assets/icons/arrow-forward.svg';
   static const String iconsBookmark = 'assets/icons/bookmark.svg';
   static const String iconsCalendar = 'assets/icons/calendar.svg';
+  static const String iconsCamera = 'assets/icons/camera.svg';
   static const String iconsCard = 'assets/icons/card.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
   static const String iconsHome = 'assets/icons/home.svg';
