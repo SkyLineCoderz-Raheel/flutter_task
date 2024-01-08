@@ -31,10 +31,13 @@ class ItemAppointments extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                   children: <Widget>[
-                    CustomText(text: "Dr. Abram George",
-                    color: Color(0xFF18273B),
-                      size: 16,
-                        fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: CustomText(text: "Dr. Abram George",
+                      color: Color(0xFF18273B),
+                        textAlign: TextAlign.start,
+                        size: 16,
+                          fontWeight: FontWeight.w600,
+                      ),
                     ),
                     CustomText(text: "\$ 70",),
                   ],

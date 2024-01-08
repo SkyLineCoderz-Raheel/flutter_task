@@ -12,7 +12,7 @@ FamilyMember familyMember;
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CircleAvatar(
-          backgroundImage: NetworkImage(familyMember.imageUrl.isEmpty?placeholder_url:familyMember.imageUrl),
+          backgroundImage: NetworkImage(familyMember.imageUrl.isEmpty?image_url:familyMember.imageUrl),
         radius: 25,
         ),
         CustomText(text: familyMember.relation,

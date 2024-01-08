@@ -194,7 +194,7 @@ class ScreenEditProfile extends StatelessWidget {
               border: Border.all(color: Colors.grey.shade100),
               image: DecorationImage(
                 image: controllerEditProfile.imagePath.value == ""
-                    ? NetworkImage(placeholder_url)
+                    ? NetworkImage(image_url)
                     : FileImage(File(controllerEditProfile.imagePath.value))
                 as ImageProvider,
               )),

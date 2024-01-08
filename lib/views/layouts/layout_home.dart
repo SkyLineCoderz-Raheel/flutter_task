@@ -65,7 +65,7 @@ class LayoutHome extends StatelessWidget {
                     leading: CircleAvatar(
                       radius: 20,
                       backgroundImage: NetworkImage(
-                          placeholder_url
+                          image_url
                       ),
                     ),
                     title: CustomText(

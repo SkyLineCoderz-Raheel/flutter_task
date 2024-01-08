@@ -181,7 +181,7 @@ class ScreenAddFamilyMembar extends StatelessWidget {
               border: Border.all(color: Colors.grey.shade100),
               image: DecorationImage(
                 image: controllerAddFamilyMember.imagePath.value == ""
-                    ? NetworkImage(placeholder_url)
+                    ? NetworkImage(image_url)
                     : FileImage(File(controllerAddFamilyMember.imagePath
                     .value)) as ImageProvider,
               )),

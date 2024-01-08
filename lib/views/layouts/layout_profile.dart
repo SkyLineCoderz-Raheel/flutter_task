@@ -79,7 +79,7 @@ class LayoutProfile extends StatelessWidget {
                                 shape: BoxShape.circle,
                                 border: Border.all(color: Colors.grey.shade100),
                                 image: DecorationImage(
-                                  image: NetworkImage(controllerHome.user.value!.imageUrl.isEmpty?placeholder_url:controllerHome.user.value!.imageUrl),
+                                  image: NetworkImage(controllerHome.user.value!.imageUrl.isEmpty?image_url:controllerHome.user.value!.imageUrl),
                                 )),
                             child: GestureDetector(
                               onTap: () {
