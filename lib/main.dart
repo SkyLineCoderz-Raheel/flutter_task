@@ -70,6 +70,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
           titleTextStyle: TextStyle(
               color: Colors.black,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               fontFamily: "Montserrat"),
           centerTitle: true,

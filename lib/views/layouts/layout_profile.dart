@@ -30,7 +30,6 @@ class LayoutProfile extends StatelessWidget {
           )
       ),
     child: SafeArea(child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,8 +50,10 @@ class LayoutProfile extends StatelessWidget {
                   ),
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
+                        margin: EdgeInsets.only(top: 20),
                         alignment: Alignment.bottomRight,
                         height: Get.height*.12,
                         width: Get.height*.12,
@@ -82,7 +83,7 @@ class LayoutProfile extends StatelessWidget {
                       color: Color(0xFF252B5C),
                         fontWeight: FontWeight.w700,
                         size: 14,
-                      ),
+                      ).marginSymmetric(vertical: 8),
                       CustomText(text: "abc@gmail.com",
                         color: Color(0xFF53587A),
                         fontWeight: FontWeight.w500,
@@ -92,17 +93,21 @@ class LayoutProfile extends StatelessWidget {
                       children: <Widget>[
                         CustomContainer(title: "23y 4m", subtitle: "Age"),
                         CustomContainer(title: "Male", subtitle: "Birth Gender"),
-                      ]                  ),
-                      CustomText(text: "Family Members",
-                        color: Color(0xFF0D0D0D),
-                        fontWeight: FontWeight.w600,
-                        size: 16,
-                      ),
+                      ]                  ).marginSymmetric(vertical: 20),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: CustomText(text: "Family Members",
+                          color: Color(0xFF0D0D0D),
+                          fontWeight: FontWeight.w600,
+                          size: 16,
+                        ),
+                      ).marginSymmetric(horizontal: 20,vertical: 8),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          CustomListviewBuilder( itemCount: 10, scrollDirection: CustomDirection.horizontal, itemBuilder: (BuildContext context, int index) {
+                          CustomListviewBuilder( itemCount: 5, scrollDirection: CustomDirection.horizontal, itemBuilder: (BuildContext context, int index) {
                             return ItemFamilyMember();
                           },),
                           GestureDetector(
@@ -138,14 +143,17 @@ class LayoutProfile extends StatelessWidget {
                           )
                         ]                  ),
                       ),
-                      CustomText(text: "Past Appointments",
-                        color: Color(0xFF0D0D0D),
-                        fontWeight: FontWeight.w600,
-                        size: 16,
-                      ),
-                      CustomListviewBuilder( itemCount: 10, scrollDirection: CustomDirection.vertical, itemBuilder: (BuildContext context, int index) {
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: CustomText(text: "Past Appointments",
+                          color: Color(0xFF0D0D0D),
+                          fontWeight: FontWeight.w600,
+                          size: 16,
+                        ),
+                      ).marginSymmetric(horizontal: 20,vertical: 8),
+                      CustomListviewBuilder( itemCount: 3, scrollDirection: CustomDirection.vertical, itemBuilder: (BuildContext context, int index) {
                         return ItemAppointments();
-                      },)
+                      },).marginOnly(bottom: 60)
 
                   ],
                   ),

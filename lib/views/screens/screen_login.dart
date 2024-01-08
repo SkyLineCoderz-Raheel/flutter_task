@@ -92,7 +92,6 @@ class ScreenLogin extends StatelessWidget {
                     style: TextStyle(color: Color(0xFF6A6A6A), fontSize: 12,fontWeight:FontWeight.w400 ),
                     text: "Don’t have an account? ",
                     children: [
-
                       TextSpan(
                         text: "Register",
                         style: TextStyle(color: appPrimaryColor,fontWeight: FontWeight.w500,fontSize: 12),

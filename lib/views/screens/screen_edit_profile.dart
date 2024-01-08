@@ -1,17 +1,21 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_task/constants/colors/colors.dart';
 import 'package:flutter_task/constants/style/style.dart';
 import 'package:flutter_task/controllers/controller_edit_profile.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../helpers/file_uploading.dart';
 import '../../widgets/custom_svg.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/my_custom_button.dart';
 import '../../widgets/my_input_feild.dart';
 
 class ScreenEditProfile extends StatelessWidget {
-  const ScreenEditProfile({Key? key}) : super(key: key);
-
+ControllerEditProfile controllerEditProfile=Get.put(ControllerEditProfile());
   @override
   Widget build(BuildContext context) {
     ControllerEditProfile controllerEditProfile = Get.put(
@@ -35,34 +39,8 @@ class ScreenEditProfile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      height: Get.height * .12,
-                      width: Get.height * .12,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey.shade100),
-                          image: DecorationImage(
-                            image: NetworkImage(placeholder_url),
-                          )),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.to(ScreenEditProfile());
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                              color: Colors.black, shape: BoxShape.circle),
-                          child: CustomSvg(
-                            name: "camera",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ).marginSymmetric(vertical: 20),
-                  CustomText(
+                  ImageCircleContainer(context, controllerEditProfile)
+                      .marginSymmetric(vertical: 20),                  CustomText(
                     text: "Full Name",
                     size: 13,
                     fontWeight: FontWeight.w500,
@@ -151,4 +129,72 @@ class ScreenEditProfile extends StatelessWidget {
       ),
     );
   }
+Widget ImageCircleContainer(BuildContext context, ControllerEditProfile controllerEditProfile) {
+  return Align(
+    alignment: Alignment.center,
+    child: Obx(() {
+      return Container(
+        alignment: Alignment.bottomRight,
+        height: Get.height * .12,
+        width: Get.height * .12,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.grey.shade100),
+            image: DecorationImage(
+              image: controllerEditProfile.imagePath.value==""?NetworkImage(placeholder_url):FileImage(File(controllerEditProfile.imagePath.value)) as ImageProvider,
+            )),
+        child: GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return BottomSheet(controllerEditProfile,);
+              },
+            );
+          },
+          child: Container(
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+                color: Colors.black, shape: BoxShape.circle),
+            child: CustomSvg(
+              name: "camera",
+            ),
+          ),
+        ),
+      );
+    }),
+  );
+}
+
+Widget BottomSheet(ControllerEditProfile controllerEditProfile) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          color: appPrimaryColor
+      ),
+      child: Wrap(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.photo_library, color: Colors.white,),
+            title: Text('Gallery', style: TextStyle(color: Colors.white),),
+            onTap: () async {
+              Get.back();
+              controllerEditProfile.imagePath.value =
+              await FilePick().pickImage(ImageSource.gallery);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.camera_alt, color: Colors.white,),
+            title: Text('Camera', style: TextStyle(color: Colors.white),),
+            onTap: () async {
+              Get.back();
+              controllerEditProfile.imagePath.value =
+              await FilePick().pickImage(ImageSource.camera);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
 }

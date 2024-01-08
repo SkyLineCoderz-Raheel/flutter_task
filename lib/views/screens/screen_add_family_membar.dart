@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_task/controllers/controller_add_family_member.dart';
+import 'package:flutter_task/helpers/file_uploading.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../constants/colors/colors.dart';
 import '../../constants/style/style.dart';
@@ -14,7 +18,7 @@ class ScreenAddFamilyMembar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ControllerAddFamilyMember controllerEditProfile = Get.put(
+    ControllerAddFamilyMember controllerAddFamilyMember = Get.put(
         ControllerAddFamilyMember());
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -35,32 +39,8 @@ class ScreenAddFamilyMembar extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      height: Get.height * .12,
-                      width: Get.height * .12,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey.shade100),
-                          image: DecorationImage(
-                            image: NetworkImage(placeholder_url),
-                          )),
-                      child: GestureDetector(
-                        onTap: () {
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                              color: Colors.black, shape: BoxShape.circle),
-                          child: CustomSvg(
-                            name: "camera",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ).marginSymmetric(vertical: 20),
+                  ImageCircleContainer(context, controllerAddFamilyMember)
+                      .marginSymmetric(vertical: 20),
                   CustomText(
                     text: "Full Name",
                     size: 13,
@@ -78,7 +58,7 @@ class ScreenAddFamilyMembar extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF0D0D0D),
                   ).marginSymmetric(horizontal: 20),
-                  DropDownWidget(controllerEditProfile),
+                  DropDownWidget(controllerAddFamilyMember),
                   CustomText(
                     text: "Phone Number",
                     size: 13,
@@ -110,21 +90,33 @@ class ScreenAddFamilyMembar extends StatelessWidget {
                         Row(
                           children: [
                             Radio(value: "Male",
-                                groupValue: controllerEditProfile.birthGender.value,
+                                groupValue: controllerAddFamilyMember
+                                    .birthGender.value,
                                 onChanged: (gender) {
-                                  controllerEditProfile.birthGender.value = gender!;
+                                  controllerAddFamilyMember.birthGender.value =
+                                  gender!;
                                 }),
-                            CustomText(text: "Male",color: controllerEditProfile.birthGender.value=="Male"?appPrimaryColor:Color(0xFF0D0D0D),size: 14,)
+                            CustomText(text: "Male",
+                              color: controllerAddFamilyMember.birthGender
+                                  .value == "Male" ? appPrimaryColor : Color(
+                                  0xFF0D0D0D),
+                              size: 14,)
                           ],
                         ),
                         Row(
                           children: [
                             Radio(value: "Female",
-                                groupValue: controllerEditProfile.birthGender.value,
+                                groupValue: controllerAddFamilyMember
+                                    .birthGender.value,
                                 onChanged: (gender) {
-                                  controllerEditProfile.birthGender.value = gender!;
+                                  controllerAddFamilyMember.birthGender.value =
+                                  gender!;
                                 }),
-                            CustomText(text: "Female",color: controllerEditProfile.birthGender.value=="Female"?appPrimaryColor:Color(0xFF0D0D0D),size: 14,)
+                            CustomText(text: "Female",
+                              color: controllerAddFamilyMember.birthGender
+                                  .value == "Female" ? appPrimaryColor : Color(
+                                  0xFF0D0D0D),
+                              size: 14,)
 
                           ],
                         ),
@@ -147,6 +139,44 @@ class ScreenAddFamilyMembar extends StatelessWidget {
       ),
     );
   }
+
+  Widget ImageCircleContainer(BuildContext context, ControllerAddFamilyMember controllerAddFamilyMember) {
+    return Align(
+      alignment: Alignment.center,
+      child: Obx(() {
+        return Container(
+          alignment: Alignment.bottomRight,
+          height: Get.height * .12,
+          width: Get.height * .12,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.grey.shade100),
+              image: DecorationImage(
+                image: controllerAddFamilyMember.imagePath.value==""?NetworkImage(placeholder_url):FileImage(File(controllerAddFamilyMember.imagePath.value)) as ImageProvider,
+              )),
+          child: GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return BottomSheet(controllerAddFamilyMember,);
+                },
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                  color: Colors.black, shape: BoxShape.circle),
+              child: CustomSvg(
+                name: "camera",
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
   Widget DropDownWidget(ControllerAddFamilyMember controllerAddFamilyMember) {
     return Obx(() {
       return Column(
@@ -154,7 +184,7 @@ class ScreenAddFamilyMembar extends StatelessWidget {
           Container(
             height: 50,
             padding: EdgeInsets.symmetric(horizontal: 10,),
-            margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             width: Get.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -190,7 +220,8 @@ class ScreenAddFamilyMembar extends StatelessWidget {
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value,style: TextStyle(color: Colors.black.withOpacity(.5)),),
+                  child: Text(value, style: TextStyle(color: Colors.black
+                      .withOpacity(.5)),),
                 );
               }).toList(),
             ),
@@ -201,4 +232,70 @@ class ScreenAddFamilyMembar extends StatelessWidget {
     });
   }
 
+
+  Widget BottomSheet(ControllerAddFamilyMember controllerAddFamilyMember) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          color: appPrimaryColor
+      ),
+      child: Wrap(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.photo_library, color: Colors.white,),
+            title: Text('Gallery', style: TextStyle(color: Colors.white),),
+            onTap: () async {
+              Get.back();
+              controllerAddFamilyMember.imagePath.value =
+              await FilePick().pickImage(ImageSource.gallery);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.camera_alt, color: Colors.white,),
+            title: Text('Camera', style: TextStyle(color: Colors.white),),
+            onTap: () async {
+              Get.back();
+              controllerAddFamilyMember.imagePath.value =
+              await FilePick().pickImage(ImageSource.camera);
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
+// class BottomSheetWidget extends StatelessWidget {
+// ControllerAddFamilyMember controllerAddFamilyMember;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+//         color: appPrimaryColor
+//       ),
+//       child: Wrap(
+//         children: <Widget>[
+//           ListTile(
+//             leading: Icon(Icons.photo_library,color: Colors.white,),
+//             title: Text('Gallery',style: TextStyle(color: Colors.white),),
+//             onTap: () async {
+//               controllerAddFamilyMember.imagePath.value= await FilePick().pickImage(ImageSource.gallery);
+//             },
+//           ),
+//           ListTile(
+//             leading: Icon(Icons.camera_alt,color: Colors.white,),
+//             title: Text('Camera',style: TextStyle(color: Colors.white),),
+//             onTap: () async {
+//               controllerAddFamilyMember.imagePath.value= await FilePick().pickImage(ImageSource.camera);
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+// BottomSheetWidget({
+//     required this.controllerAddFamilyMember,
+//   });
+// }
+

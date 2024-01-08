@@ -134,8 +134,9 @@ class _ScreenHomePageState extends State<ScreenHomePage> with SingleTickerProvid
           // onBottomBarShown: () {},
           body: (context, controller) => TabBarView(
             controller: tabController,
+
             dragStartBehavior: DragStartBehavior.down,
-            physics: const BouncingScrollPhysics(),
+            physics: NeverScrollableScrollPhysics(),
             children: [
               LayoutHome(),
               LayoutCalendar(),
