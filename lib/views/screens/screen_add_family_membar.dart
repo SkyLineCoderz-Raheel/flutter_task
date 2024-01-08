@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/controllers/controller_add_family_member.dart';
 import 'package:flutter_task/helpers/file_uploading.dart';
+import 'package:flutter_task/views/screens/screen_home_page.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -143,13 +144,11 @@ class ScreenAddFamilyMembar extends StatelessWidget {
           Obx(() {
             return MyCustomButton(
               text: "Add",
-
               loading: controllerAddFamilyMember.showLoading.value,
-
               onTap: () async {
                 var response = await controllerAddFamilyMember.addMember();
                 if (response == "success") {
-                  Get.back();
+                  Get.offAll(ScreenHomePage());
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("Family Member Added...")));
                   controllerAddFamilyMember.imagePath.value = '';

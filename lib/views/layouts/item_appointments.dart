@@ -21,8 +21,9 @@ class ItemAppointments extends StatelessWidget {
       child: Row(
         children: <Widget>[
           CircleAvatar(
-            radius: 60,
-            backgroundImage: NetworkImage(placeholder_url),
+            radius: 55,
+            backgroundColor: Colors.transparent,
+            backgroundImage: NetworkImage(image_url),
           ),
           Expanded(child: Column(
               children: <Widget>[
@@ -80,22 +81,31 @@ class ItemAppointments extends StatelessWidget {
                   ],
                 ).marginSymmetric(vertical: 5),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    CustomText(text: "Hassan Khalid (Other)",
-                      size: 9,
-                      maxLine: 1,
-                      textOverflow: TextOverflow.ellipsis,
-                      fontWeight: FontWeight.w500,
+
+                    Expanded(
+                      child: CustomText(text: "Hassan Khalid (Other)",
+                        size: 9,
+                        maxLine: 1,
+                        textAlign: TextAlign.start,
+                        textOverflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    CustomText(text: "Monday, OCT 20, 08:00 PM",
-                      size: 9,
-                      fontWeight: FontWeight.w500,
+                    Expanded(
+                      child: CustomText(text: "Monday, OCT 20, 08:00 PM",
+                        size: 9,
+                        maxLine: 1,
+                        textAlign: TextAlign.end,
+
+                        textOverflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w500,
+                      ),
                     )
                   ],
                 ).marginSymmetric(vertical: 5),
               ],
-            ),
+            ).marginOnly(left: 5),
           )
         ],
       ),

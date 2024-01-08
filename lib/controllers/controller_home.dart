@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_task/helpers/database_reference.dart';
 import 'package:flutter_task/helpers/firebase_utils.dart';
@@ -11,17 +12,29 @@ import '../helpers/fcm.dart';
 class ControllerHome extends GetxController{
   Rx<model.User?> user = Rx<model.User?>(null);
   RxList<FamilyMember> familyMemberList = RxList<FamilyMember>([]);
+  void bindFamilyMemberStream() {
+    var familyStream = DbReference()
+        .familyMemberRef
+        .where("userId", isEqualTo: FirebaseUtils.myId)
+        .snapshots();
+
+    familyMemberList.bindStream(familyStream.map(
+          (QuerySnapshot<Map<String, dynamic>> event) {
+        return event.docs.map((doc) => FamilyMember.fromMap(doc.data())).toList();
+      },
+
+    ));
+    log(familyMemberList.value.length.toString());
+  }
 
 
   @override
   void onInit() {
     updateToken();
     UserStream();
-    getFamilyMemberList().then((value) {
-      familyMemberList.value=value;
-      log(familyMemberList.value.toString());
-    });
-    super.onInit();
+    bindFamilyMemberStream();
+    // getFamilyMemberList();
+      super.onInit();
   }
   void updateToken() async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -36,10 +49,10 @@ class ControllerHome extends GetxController{
   }
 
   //Get familyMember method
-  Future<List<FamilyMember>> getFamilyMemberList() async {
+  Future<void> getFamilyMemberList() async {
     try {
       var querySnapshot = await DbReference().familyMemberRef.get();
-      List<FamilyMember> familyMemberList = [];
+      List<FamilyMember> newFamilyMemberList = [];
 
       for (var doc in querySnapshot.docs) {
         var data = doc.data();
@@ -47,14 +60,13 @@ class ControllerHome extends GetxController{
 
         // Check if the userId matches the current user's ID
         if (familyMember.userId == FirebaseUtils.myId) {
-          familyMemberList.add(familyMember);
+          newFamilyMemberList.add(familyMember);
         }
       }
 
-      return familyMemberList;
+      familyMemberList.value=newFamilyMemberList;
     } catch (e) {
       print("Error fetching FamilyMember: $e");
-      return [];
     }
   }
 

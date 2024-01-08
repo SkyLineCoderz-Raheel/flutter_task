@@ -35,5 +35,6 @@ class Assets {
   static const String imagesBackgroundCardq = 'assets/images/background_cardq.png';
   static const String imagesLoginAppBar = 'assets/images/login_app_bar.png';
   static const String imagesLoginWelcome = 'assets/images/login_welcome.png';
+  static const String imagesProfile = 'assets/images/profile.png';
 
 }

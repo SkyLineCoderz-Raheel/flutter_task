@@ -8,6 +8,8 @@ import 'package:flutter_task/views/layouts/layout_calendar.dart';
 import 'package:flutter_task/views/layouts/layout_home.dart';
 import 'package:flutter_task/views/layouts/layout_notification.dart';
 import 'package:flutter_task/views/layouts/layout_profile.dart';
+import 'package:flutter_task/widgets/custom_image.dart';
+import 'package:flutter_task/widgets/custom_svg.dart';
 import 'package:get/get.dart';
 
 import '../../packages/bottom_navigation_bar/src/bottom_bar.dart';
@@ -82,8 +84,8 @@ class _ScreenHomePageState extends State<ScreenHomePage> with SingleTickerProvid
                   height: 55,
                   width: 40,
                   child: Center(
-                      child: Icon(
-                        Icons.home,
+                      child: CustomSvg(
+                        name: "home",
                         color: tabController.index == 0 ? appPrimaryColor : Color(0xFF0D0D0D),
                       )),
                 ),
@@ -91,8 +93,8 @@ class _ScreenHomePageState extends State<ScreenHomePage> with SingleTickerProvid
                   height: 55,
                   width: 40,
                   child: Center(
-                      child: Icon(
-                        Icons.calendar_month,
+                      child: CustomSvg(
+                        name: "calendar",
                         color: tabController.index == 1 ? appPrimaryColor : Color(0xFF0D0D0D),
                       )),
                 ),
@@ -100,8 +102,8 @@ class _ScreenHomePageState extends State<ScreenHomePage> with SingleTickerProvid
                   height: 55,
                   width: 40,
                   child: Center(
-                      child: Icon(
-                        Icons.notifications_none,
+                      child: CustomSvg(
+                        name: "notification",
                         color: tabController.index == 2 ? appPrimaryColor : Color(0xFF0D0D0D),
                       )),
                 ),
@@ -109,9 +111,9 @@ class _ScreenHomePageState extends State<ScreenHomePage> with SingleTickerProvid
                   height: 55,
                   width: 40,
                   child: Center(
-                      child: Icon(
-                        Icons.account_circle_outlined,
-                        color: tabController.index == 3 ? appPrimaryColor : Color(0xFF0D0D0D),
+                      child: CustomImage(
+                        name: "profile",
+                        // color: tabController.index == 3 ? appPrimaryColor : Color(0xFF0D0D0D),
                       )),
                 ),
               ],
