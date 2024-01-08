@@ -49,6 +49,7 @@ class ScreenAddFamilyMembar extends StatelessWidget {
                   ).marginSymmetric(horizontal: 20),
                   MyInputField(
                     hint: "Ali Ahmad",
+                    controller: controllerAddFamilyMember.fullNameController,
                     keyboardType: TextInputType.name,
                   ),
 
@@ -67,6 +68,7 @@ class ScreenAddFamilyMembar extends StatelessWidget {
                   ).marginSymmetric(horizontal: 20),
                   MyInputField(
                     hint: "+92303030033",
+                    controller: controllerAddFamilyMember.phoneNumberController,
                     keyboardType: TextInputType.number,
                   ),
                   CustomText(
@@ -75,9 +77,20 @@ class ScreenAddFamilyMembar extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF0D0D0D),
                   ).marginSymmetric(horizontal: 20),
-                  MyInputField(
-                    hint: "20 jan 2024",
-                  ),
+                  Obx(() {
+                    return MyInputField(
+                      readOnly: false,
+                      hint: "${controllerAddFamilyMember.selectedDate.value
+                          .day} ${controllerAddFamilyMember.selectedDate.value
+                          .month} ${controllerAddFamilyMember.selectedDate.value
+                          .year}",
+                      onTap: () {
+                        controllerAddFamilyMember.selectDate(context);
+                      },
+                      // hint: "20 jan 2024",
+                    );
+                  }),
+
                   CustomText(
                     text: "Birth Gender",
                     size: 13,
@@ -127,20 +140,36 @@ class ScreenAddFamilyMembar extends StatelessWidget {
               ),
             ),
           ),
-          MyCustomButton(
-            text: "Add",
-            onTap: () {
-              // Get.offAll(ScreenHomePage());
-            },
-            height: 55,
-          ).marginSymmetric(vertical: 20),
+          Obx(() {
+            return MyCustomButton(
+              text: "Add",
+
+              loading: controllerAddFamilyMember.showLoading.value,
+
+              onTap: () async {
+                var response = await controllerAddFamilyMember.addMember();
+                if (response == "success") {
+                  Get.back();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Family Member Added...")));
+                  controllerAddFamilyMember.imagePath.value = '';
+                }
+                else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(response)));
+                }
+              },
+              height: 55,
+            );
+          }).marginSymmetric(vertical: 20),
 
         ],
       ),
     );
   }
 
-  Widget ImageCircleContainer(BuildContext context, ControllerAddFamilyMember controllerAddFamilyMember) {
+  Widget ImageCircleContainer(BuildContext context,
+      ControllerAddFamilyMember controllerAddFamilyMember) {
     return Align(
       alignment: Alignment.center,
       child: Obx(() {
@@ -152,7 +181,10 @@ class ScreenAddFamilyMembar extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.grey.shade100),
               image: DecorationImage(
-                image: controllerAddFamilyMember.imagePath.value==""?NetworkImage(placeholder_url):FileImage(File(controllerAddFamilyMember.imagePath.value)) as ImageProvider,
+                image: controllerAddFamilyMember.imagePath.value == ""
+                    ? NetworkImage(placeholder_url)
+                    : FileImage(File(controllerAddFamilyMember.imagePath
+                    .value)) as ImageProvider,
               )),
           child: GestureDetector(
             onTap: () {

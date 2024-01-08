@@ -118,7 +118,7 @@ class _MyInputFieldState extends State<MyInputField> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-      height:widget.height?? 55,
+      height:widget.height?? 60,
 
       child: TextFormField(
         maxLength: widget.limit,
@@ -205,6 +205,10 @@ class _MyInputFieldState extends State<MyInputField> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: Color(0xFF69936A),width: 1.5)
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: Colors.red,width: 1.5)
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),

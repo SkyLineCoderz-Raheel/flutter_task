@@ -3,10 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/constants/colors/colors.dart';
 import 'package:flutter_task/constants/style/style.dart';
+import 'package:flutter_task/controllers/controller_home.dart';
 import 'package:flutter_task/views/layouts/layout_calendar.dart';
 import 'package:flutter_task/views/layouts/layout_home.dart';
 import 'package:flutter_task/views/layouts/layout_notification.dart';
 import 'package:flutter_task/views/layouts/layout_profile.dart';
+import 'package:get/get.dart';
 
 import '../../packages/bottom_navigation_bar/src/bottom_bar.dart';
 
@@ -43,6 +45,7 @@ class _ScreenHomePageState extends State<ScreenHomePage> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    ControllerHome controllerHome=Get.put(ControllerHome());
     return SafeArea(
       child: Scaffold(
         body: BottomBar(

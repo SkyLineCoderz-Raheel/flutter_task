@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/constants/colors/colors.dart';
+import 'package:flutter_task/controllers/controller_home.dart';
 import 'package:flutter_task/views/layouts/item_health_article.dart';
 import 'package:flutter_task/widgets/custom_listview_builder.dart';
 import 'package:flutter_task/widgets/custom_svg.dart';
@@ -31,7 +32,7 @@ class LayoutHome extends StatelessWidget {
           children: [
           CustomSvg(name: "menu",).marginOnly(left: 20,top: 30),
           CustomText(
-           text: "Hey, Emily! ",
+           text: "Hey, ${Get.find<ControllerHome>().user.value!.name ?? " No user"}! ",
             fontWeight: FontWeight.w600,
             size: 24,
             color: Colors.white,
@@ -42,7 +43,7 @@ class LayoutHome extends StatelessWidget {
               color: Color(0xFFE2E2E2),
 
             ).marginSymmetric(horizontal: 20,vertical: 10),
-            MyCustomButton(text: "Book Appointment", onTap: (){}).marginOnly(bottom: 20),
+            MyCustomButton(text: "Book Appointment", onTap: (){}, loading: false,).marginOnly(bottom: 20),
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
