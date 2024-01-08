@@ -24,6 +24,7 @@ String title,subtitle;
         children: [
         CustomText(text: title,
         color: Color(0xFF252B5C),
+
           size: 14,
           maxLine: 1,
           textOverflow: TextOverflow.ellipsis,

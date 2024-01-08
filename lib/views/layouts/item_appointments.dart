@@ -35,6 +35,8 @@ class ItemAppointments extends StatelessWidget {
                       child: CustomText(text: "Dr. Abram George",
                       color: Color(0xFF18273B),
                         textAlign: TextAlign.start,
+                        maxLine: 1,
+                        textOverflow: TextOverflow.ellipsis,
                         size: 16,
                           fontWeight: FontWeight.w600,
                       ),

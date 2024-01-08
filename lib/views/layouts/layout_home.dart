@@ -57,6 +57,7 @@ class LayoutHome extends StatelessWidget {
                   children: [
                   CustomText(text: "You have an upcoming appointment!!",
                     fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.start,
                     size: 14,
                     color: Color(0xFF3B3B3B),
 
@@ -110,17 +111,28 @@ class LayoutHome extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: <Widget>[
-                            CustomSvg(name: "calendar",).marginOnly(right: 5),
-                            CustomText(text:"Monday, May 12",size: 14,)
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: <Widget>[
+                              CustomSvg(name: "calendar",).marginOnly(right: 5),
+                              Expanded(
+                                child: CustomText(text:"Monday, May 12",size: 14,textOverflow: TextOverflow.ellipsis,
+                                  maxLine: 1,),
+                              )
+                            ],
+                          ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            CustomSvg(name: "timmer",).marginOnly(right: 10),
-                            CustomText(text:"11:00 - 12:00 Am",size: 14,)
-                          ],
+                        Expanded(
+                          child: Row(
+                            children: <Widget>[
+                              CustomSvg(name: "timmer",).marginOnly(right: 10),
+                              Expanded(
+                                child: CustomText(text:"11:00 - 12:00 Am",size: 14,
+                                textOverflow: TextOverflow.ellipsis,
+                                    maxLine: 1,),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
