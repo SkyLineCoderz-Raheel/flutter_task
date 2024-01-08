@@ -87,17 +87,19 @@ class ScreenEditProfile extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF0D0D0D),
                   ).marginSymmetric(horizontal: 20),
-                  MyInputField(
-                    readOnly: false,
-                    hint: "${controllerEditProfile.selectedDate.value
-                        .day} ${controllerEditProfile.selectedDate.value
-                        .month} ${controllerEditProfile.selectedDate.value
-                        .year}",
-                    onTap: () {
-                      controllerEditProfile.selectDate(context);
-                    },
-                    // hint: "20 jan 2024",
-                  ),
+                  Obx(() {
+                    return MyInputField(
+                      readOnly: false,
+                      hint: "${controllerEditProfile.selectedDate.value
+                          .day} ${controllerEditProfile.selectedDate.value
+                          .month} ${controllerEditProfile.selectedDate.value
+                          .year}",
+                      onTap: () {
+                        controllerEditProfile.selectDate(context);
+                      },
+                      // hint: "20 jan 2024",
+                    );
+                  }),
                   CustomText(
                     text: "Birth Gender",
                     size: 13,

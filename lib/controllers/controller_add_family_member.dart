@@ -23,6 +23,7 @@ class ControllerAddFamilyMember extends GetxController {
     if (fullName.isEmpty && phoneNumber.isEmpty&&imagePath.value.isEmpty) {
       response = "Please Enter FullName and Phone Number";
     } else {
+      showLoading.value=true;
       String url =
           await FirebaseUtils.uploadImage(imagePath.value, "FamilyMember/$id")
               .catchError((error) {
@@ -46,8 +47,10 @@ class ControllerAddFamilyMember extends GetxController {
           .set(familyMember.toMap())
           .then((value) {
         response = "success";
+        showLoading.value=false;
       }).catchError((error) {
         response = error.toString();
+        showLoading.value=false;
       });
     }
 
